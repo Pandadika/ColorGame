@@ -21,7 +21,6 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         Random random = new Random();
-        bool buttonClicked = false;
         bool cheatMode = false;
         bool easyMode = false;
         double r, g, b = 0;
@@ -32,16 +31,6 @@ namespace WpfApp1
             canvas.Background = new SolidColorBrush(Color.FromRgb((byte)(255 * random.NextDouble()), (byte)(255 * random.NextDouble()), (byte)(255 * random.NextDouble())));
         }
 
-
-        private void submitButton_Click(object sender, RoutedEventArgs e)
-        { 
-
-            MessageBox.Show($"Hello {firstNameText.Text}");
-
-        }
-
-
-
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
 
@@ -50,51 +39,15 @@ namespace WpfApp1
             double height = mainWindow.ActualHeight;
             double width = mainWindow.ActualWidth;
 
-            //MessageBox.Show($"Height = {height} Width = {width}");
-
-            //r = 255 - (((Point.Y / height)*128) + (Point.X /width)*128);
             r = 255-((Point.X/width)*255);
             g = ((Point.Y/height)*255);
-            //g = ((Point.Y / height) * 128) + ((Point.X / width) * 128);
-            //b = (Point.Y/height) * 255;
-
-
-
-            //List<FontFamily> fontFamilies = new List<FontFamily>() {
-            //    new FontFamily("Old English Text MT"),
-            //    new FontFamily("Comic Sans"),
-            //    new FontFamily("Papyrus")
-            //};
-
-            //rgbinfo.FontFamily = fontFamilies[(int)((r%255/255)*3)];
-            //rgbinfo.FontSize = g;
+  
             updateWindow();
-
-           
-
-            if (( 
-                ((SolidColorBrush)mainWindow.Background).Color.R == ((SolidColorBrush)canvas.Background).Color.R && 
-                ((SolidColorBrush)mainWindow.Background).Color.G == ((SolidColorBrush)canvas.Background).Color.G && 
-                ((SolidColorBrush)mainWindow.Background).Color.B == ((SolidColorBrush)canvas.Background).Color.B) 
-                ||
-                (easyMode &&
-               ((((SolidColorBrush)mainWindow.Background).Color.R + 10 >= ((SolidColorBrush)canvas.Background).Color.R) &&
-               (((SolidColorBrush)mainWindow.Background).Color.R - 10 <= ((SolidColorBrush)canvas.Background).Color.R) &&
-               (((SolidColorBrush)mainWindow.Background).Color.G + 10 >= ((SolidColorBrush)canvas.Background).Color.G) &&
-               (((SolidColorBrush)mainWindow.Background).Color.G - 10 <= ((SolidColorBrush)canvas.Background).Color.G) &&
-               (((SolidColorBrush)mainWindow.Background).Color.B + 10 >= ((SolidColorBrush)canvas.Background).Color.B) &&
-               (((SolidColorBrush)mainWindow.Background).Color.B - 10 <= ((SolidColorBrush)canvas.Background).Color.B))))
-
-
-            {
-                MessageBox.Show("You WIN!");
-            }
 
         }
 
         private void colorButton_Click(object sender, RoutedEventArgs e)
         {
-            buttonClicked = true;
             canvas.Background = new SolidColorBrush(Color.FromRgb((byte)(255 * random.NextDouble()), (byte)(255 * random.NextDouble()), (byte)(255 * random.NextDouble())));
         }
 
@@ -155,6 +108,27 @@ namespace WpfApp1
                 rgbinfo.Text = $"R={(byte)r} G = {(byte)g} B = {(byte)b}";
             }
             mainWindow.Background = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
+            checkWin();
+        }
+
+        private void checkWin()
+        {
+            if ((
+                ((SolidColorBrush)mainWindow.Background).Color.R == ((SolidColorBrush)canvas.Background).Color.R &&
+                ((SolidColorBrush)mainWindow.Background).Color.G == ((SolidColorBrush)canvas.Background).Color.G &&
+                ((SolidColorBrush)mainWindow.Background).Color.B == ((SolidColorBrush)canvas.Background).Color.B)
+                ||
+                (easyMode &&
+               ((((SolidColorBrush)mainWindow.Background).Color.R + 10 >= ((SolidColorBrush)canvas.Background).Color.R) &&
+               (((SolidColorBrush)mainWindow.Background).Color.R - 10 <= ((SolidColorBrush)canvas.Background).Color.R) &&
+               (((SolidColorBrush)mainWindow.Background).Color.G + 10 >= ((SolidColorBrush)canvas.Background).Color.G) &&
+               (((SolidColorBrush)mainWindow.Background).Color.G - 10 <= ((SolidColorBrush)canvas.Background).Color.G) &&
+               (((SolidColorBrush)mainWindow.Background).Color.B + 10 >= ((SolidColorBrush)canvas.Background).Color.B) &&
+               (((SolidColorBrush)mainWindow.Background).Color.B - 10 <= ((SolidColorBrush)canvas.Background).Color.B))))
+
+            {
+                MessageBox.Show("You WIN!");
+            }
         }
     }
 }
