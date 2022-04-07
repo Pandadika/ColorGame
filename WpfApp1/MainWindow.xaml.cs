@@ -20,7 +20,7 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        Random random = new();
+        readonly Random random = new();
         bool cheatMode = false;
         bool easyMode = false;
         bool hardMode = false;
@@ -29,14 +29,15 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            //Randomise inital Target Canvas Color
             canvas.Background = new SolidColorBrush(Color.FromRgb((byte)(255 * random.NextDouble()), (byte)(255 * random.NextDouble()), (byte)(255 * random.NextDouble())));
         }
 
+        //Moving mouse generates a new color value based on 2d plane with Red and Green, stepwise by 5 if easy mode is enabled
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
 
             Point Point = e.GetPosition(this);
-
             double height = mainWindow.ActualHeight;
             double width = mainWindow.ActualWidth;
 
@@ -63,6 +64,7 @@ namespace WpfApp1
 
         }
 
+        //A new random color is given to Target Canvas. If easy mode the color has to be devisible by 5.
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
             byte red, green, blue;
@@ -90,6 +92,7 @@ namespace WpfApp1
 
         }
 
+        //Toggle EasyMode boolean on/off and updates XAML button text
         private void EasyButton_Click(object sender, RoutedEventArgs e)
         {
             easyMode = !easyMode;
@@ -105,6 +108,7 @@ namespace WpfApp1
 
         }
 
+        //Toggle CheatMode on/off and updates XAML button text
         private void CheatButton_Click(object sender, RoutedEventArgs e)
         {
             cheatMode = !cheatMode;
@@ -119,6 +123,7 @@ namespace WpfApp1
             UpdateWindow();
         }
 
+        //Blue is determined by "depth" the scroll wheel is used for this. If EasyMode stepwise as with Mouse Moving
         private void MainWindow_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             double delta = (double)e.Delta;
@@ -161,7 +166,8 @@ namespace WpfApp1
             UpdateWindow();
         }
 
-        private void hardButton_Click(object sender, RoutedEventArgs e)
+        //Hardmode toggle to show Black canvas behind Target Canvas to make neighbor color matching harder, and updates XAML button text
+        private void HardButton_Click(object sender, RoutedEventArgs e)
         {
             hardMode = !hardMode;
             if (hardMode)
@@ -176,6 +182,7 @@ namespace WpfApp1
             }
         }
 
+        //updates the Background color according to mouse movement and scroll depth. if Cheatmode text tells the color of target canvas.
         private void UpdateWindow()
         {
             if (cheatMode)
@@ -192,6 +199,8 @@ namespace WpfApp1
             CheckWin();
         }
 
+
+        //Check for win, that the background color is exactly the canvas color. if EasyMode a tolerance of 15 is added to the RGB background.
         private void CheckWin()
         {
             int difficultyCoeficient = 15;
@@ -209,8 +218,8 @@ namespace WpfApp1
                (((SolidColorBrush)mainWindow.Background).Color.B - difficultyCoeficient <= ((SolidColorBrush)canvas.Background).Color.B)))
 
             {
-                MessageBox.Show("You WIN!");
                 canvas.Background = new SolidColorBrush(Color.FromRgb((byte)(255 * random.NextDouble()), (byte)(255 * random.NextDouble()), (byte)(255 * random.NextDouble())));
+                MessageBox.Show("You WIN!");
                 UpdateWindow();
             }
         }

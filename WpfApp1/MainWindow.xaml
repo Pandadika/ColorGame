@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         
-        mc:Ignorable="d" FontSize="18" FontFamily="Segeo UI Light"
+        mc:Ignorable="d" FontSize="18" FontFamily="Segoe UI"
         Title="WPF Demo" Height="800" Width="800">
 
+    <!--Construct grid-->
     <Grid x:Name="mainWindow" Background="AliceBlue" MouseMove="Grid_MouseMove" MouseWheel="MainWindow_MouseWheel">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -27,29 +27,27 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        
-        <TextBlock  FontSize="49" Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="1" Margin="0, 0, 0, 20" FontFamily="Blackadder ITC" HorizontalAlignment="Center" Text="ColorMatch" Foreground="AliceBlue"/>
-       <TextBlock  FontSize="48" Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="1" Margin="0, 0, 0, 20" FontFamily="Blackadder ITC" HorizontalAlignment="Center" Text="ColorMatch"/>
-        
+        <!-- Add Grid elements -->
+        <TextBlock  FontSize="49" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" Margin="0, 0, 0, 20" FontFamily="Blackadder ITC" HorizontalAlignment="Center" Text="ColorMatch" Foreground="AliceBlue"/>
+        <TextBlock  FontSize="48" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" Margin="0, 0, 0, 20" FontFamily="Blackadder ITC" HorizontalAlignment="Center" Text="ColorMatch"/>
+        <!--Buttons to click and function names-->
         <Button x:Name="colorButton" Content="Change Color" Grid.Column="1" Grid.Row="4" Margin="20, 10" Click="ColorButton_Click"/>
         <Button x:Name="cheatButton" Content="Activate Cheat" Grid.Column="1" Grid.Row="5" Margin="20,10" FontSize="10" Click="CheatButton_Click"/>
         <Button x:Name="easyButton" Content="Easy Mode Off" Grid.Column="1" Grid.Row="6" Margin="20,10" FontSize="10" Click="EasyButton_Click"/>
-        <Button x:Name="hardButton" Content="Hardmode?" Grid.Column="1" FontSize="10"    Grid.Row="7" Margin="20,10" Click="hardButton_Click" />
+        <Button x:Name="hardButton" Content="Hardmode?" Grid.Column="1" FontSize="10"    Grid.Row="7" Margin="20,10" Click="HardButton_Click" />
 
 
         <TextBlock x:Name="rgbinfo" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="4"/>
-        
-        
-        
-        
-        <Canvas x:Name="BlackCanvas" Grid.Column="1" Grid.Row="5" Margin="5" Width="70" Height="70" Grid.ColumnSpan="4" HorizontalAlignment="Center" Background="Black" Visibility="hidden">
+
+
+        <!-- Match Color Canvas with Black canvas behind for "hardmode" -->
+        <Canvas x:Name="BlackCanvas" Grid.Column="1" Grid.Row="3" Margin="5" Width="70" Height="70" Grid.ColumnSpan="4" Grid.RowSpan="4"  HorizontalAlignment="Center" Background="Black" Visibility="hidden">
         </Canvas>
-        <Canvas x:Name="canvas" Grid.Column="1" Grid.Row="5" Margin="5" Width="50" Height="50" Grid.ColumnSpan="4" HorizontalAlignment="Center"> 
+        <Canvas x:Name="canvas" Grid.Column="1" Grid.Row="3" Margin="5" Width="50" Height="50" Grid.ColumnSpan="4" Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="center">
         </Canvas>
 
 
