@@ -44,15 +44,33 @@ namespace WpfApp1
 
             if (easyMode)
             {
+                //no new red or green value if color code not devisible by five.
                 if ((int)((Point.X / width) * 255) % 5.0 == 0)
                 {
-                    r = 255 - ((Point.X / width) * 255) + 1;
+                    if(Point.X > 0)
+                    {
+                        r = (250 - ((Point.X / width) * 255)) + 1;
+                    }
+                    if (Point.X > width)
+                    {
+                        r = 0;
+                    }
+                    else if (Point.X <= 0)
+                    {
+                        r = 255;
+                    }
+                    
+                    
+
                 }
                 if ((int)((Point.Y / height) * 255) % 5.0 == 0)
                 {
                     g = ((Point.Y / height) * 255);
+                    if (Point.Y+1 >= height)
+                    {
+                        g = 255;
+                    }
                 }
-
             }
             else
             {
